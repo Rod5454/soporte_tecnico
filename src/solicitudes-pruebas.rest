@@ -1,0 +1,56 @@
+### GET Todas (Verificación Inicial)
+GET http://localhost:8080/api/solicitudes
+
+### POST - Registrar Solicitud (Creación Exitosa)
+# Asignará ID 4 (si no has eliminado los 3 precargados)
+POST http://localhost:8080/api/solicitudes
+Content-Type: application/json
+
+{
+    "titulo": "No puedo iniciar sesión en la VPN",
+    "descripcion": "El sistema me dice 'Credenciales Inválidas' desde ayer.",
+    "cliente": {
+        "nombre": "Javier Solís",
+        "email": "javier.s@techcorp.com"
+    },
+    "prioridad": 5
+}
+
+### GET - Consultar Solicitud Específica (ID 4)
+GET http://localhost:8080/api/solicitudes/4
+
+### PUT - Actualizar Solicitud (Editar Estado/Prioridad - ID 4)
+PUT http://localhost:8080/api/solicitudes/4
+Content-Type: application/json
+
+{
+    "titulo": "No puedo iniciar sesión en la VPN",
+    "descripcion": "El sistema me dice 'Credenciales Inválidas' desde ayer.",
+    "cliente": {
+        "nombre": "Javier Solís",
+        "email": "javier.s@techcorp.com"
+    },
+    "estado": "En Progreso",
+    "prioridad": 4
+}
+
+### POST - Validación Fallida (Error 400 Bad Request)
+# Título muy corto, Prioridad faltante, Email del cliente vacío
+POST http://localhost:8080/api/solicitudes
+Content-Type: application/json
+
+{
+    "titulo": "F",
+    "descripcion": "Mi pantalla está negra.",
+    "cliente": {
+        "nombre": "Pedro",
+        "email": ""
+    }
+    // Prioridad y Estado se omiten, causando errores
+}
+
+### GET - Solicitud No Encontrada (Error 404 Not Found)
+GET http://localhost:8080/api/solicitudes/999
+
+### DELETE - Eliminar Solicitud (ID 4)
+DELETE http://localhost:8080/api/solicitudes/4
